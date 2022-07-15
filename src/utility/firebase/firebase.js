@@ -3,7 +3,7 @@
 import { initializeApp } from "firebase/app";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-import{getAuth,signInWithPopup,GoogleAuthProvider} from "firebase/auth"
+import{getAuth,signInWithPopup,GoogleAuthProvider,createUserWithEmailAndPassword} from "firebase/auth"
 import{getFirestore,doc,getDoc,setDoc} from "firebase/firestore"
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -28,20 +28,31 @@ export const auth=new getAuth()
 export const signInWithGooglePopup=()=>signInWithPopup(auth,provider)
 
 const db=getFirestore()
-export const createUserDocumentFromAuth=async (user)=>{
+export const createUserDocumentFromAuth=async (user,info)=>{
+    console.log("andar wala",info)
+    if(!user)return;
     const UserDocRef=doc(db,"users",user.uid)
     const snapShot= await getDoc(UserDocRef)
     console.log(snapShot)
     if(!snapShot.exists()){
-        const {displayName,email}=user
+        let {displayName,email}=user
+        if(displayName==null)displayName=info
+        console.log("display wala",displayName)
         const createdAt= new Date()
         try{
             await setDoc(UserDocRef,{
                 displayName,email,createdAt
             })
         }catch(err){
-            console.log("err creating user",err)
+            if(err==="auth/email-already-in-use")alert("email already in use")
+            else console.log(err)
         }
     }
     return UserDocRef;
+}
+
+export const createAuthWithUserAndPassword=async (email,pass)=>{
+    if(!email||!pass)return
+    return await createUserWithEmailAndPassword(auth,email,pass)
+
 }
