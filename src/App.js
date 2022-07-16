@@ -3,7 +3,7 @@ import {React,Component} from "react"
 import {Routes,Route} from "react-router-dom";
 import Home from "./routes/home/home";
 import{Nav} from "./routes/navigation/navigation"
-import {SignIn} from "./routes/signIn/signIn"
+import {Auth} from "./routes/authentication/authentication"
 
 class App extends Component{
  render(){
@@ -12,7 +12,7 @@ class App extends Component{
       <Route path="/" element={<Nav/>}>
          <Route index element={<Home/>}/>
          <Route path="/shop" element={<Shop/>}/>
-         <Route path="/signIn" element={<SignIn/>}/>
+         <Route path="/auth" element={<Auth/>}/>
       </Route>
       
     </Routes>

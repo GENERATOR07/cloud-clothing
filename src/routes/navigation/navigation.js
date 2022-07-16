@@ -13,7 +13,7 @@ export const Nav=()=>{
       
       <div className="nav-links-container">
         <Link className="nav-link" to="/shop">shop</Link>
-        <Link className="nav-link" to="/signIn">signIn</Link>
+        <Link className="nav-link" to="/auth">signIn</Link>
         
       </div>
       
