@@ -1,10 +1,11 @@
 
 
-import { useState } from "react"
+import { useState,useContext } from "react"
 import { createAuthWithUserAndPassword,createUserDocumentFromAuth } from "../utility/firebase/firebase"
 import { Finput } from "./forminput/finput"
 import "./signup.style.scss"
 import { Button } from "./button/button"
+import { userContext } from "../contexts/user.context"
 const formdata={
 name:"",
 email:"",
@@ -15,6 +16,7 @@ cpass:""
 export const SignUp=()=>{
     const [formfields,setformfields]=useState(formdata)
     const {name,email,pass,cpass}=formfields
+    const {setUser}=useContext(userContext)
     console.log(formfields)
 
     const handelSubmit=async (e)=>{
@@ -26,6 +28,7 @@ export const SignUp=()=>{
       try{
         console.log(name)
         const {user}=await createAuthWithUserAndPassword(email,pass)
+        setUser(user)
        console.log(user)
         await createUserDocumentFromAuth(user,name)
       }catch(e){
