@@ -6,11 +6,15 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
 import { UserProvider } from './contexts/user.context';
 import "./index.scss"
+import {ProductsProvider} from "./contexts/productContext"
 
 ReactDOM.render(
   <BrowserRouter>
     <UserProvider>
-    <App/>
+      <ProductsProvider>
+         <App/>
+      </ProductsProvider>
+    
     </UserProvider>
   </BrowserRouter>
    

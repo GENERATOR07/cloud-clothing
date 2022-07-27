@@ -4,7 +4,7 @@ import {Routes,Route} from "react-router-dom";
 import Home from "./routes/home/home";
 import{Nav} from "./routes/navigation/navigation"
 import {Auth} from "./routes/authentication/authentication"
-
+import {Shop}from "./routes/shop/shop"
 class App extends Component{
  render(){
   return(
@@ -19,7 +19,5 @@ class App extends Component{
   )
  }
 }
-const Shop=()=>{
-  return <h1>welcum to sop</h1>
-}
+
 export default App;
