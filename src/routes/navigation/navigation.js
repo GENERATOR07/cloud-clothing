@@ -1,12 +1,15 @@
-import { useContext } from "react"
+import { useContext,Fragment } from "react"
 import { Outlet } from "react-router-dom"
-import { Fragment } from "react/cjs/react.development"
+import { CartContext } from "../../contexts/cartcontext"
 import {Link} from "react-router-dom"
 import { ReactComponent as Clogo} from "../assets/crown.svg"
 import { userContext } from "../../contexts/user.context"
 import { signOutUser } from "../../utility/firebase/firebase"
 import "./navigation.styles.scss"
+import { CartIcon } from "../../component/cart-icon/cartIcon"
+import { CartDropdown } from "../../component/cartDropdown/cartDropdown"
 export const Nav=()=>{
+ const {isCartOpen}=useContext(CartContext)
   const {user,setUser}=useContext(userContext)
   console.log(user,"from navigation bar")
   const signOutHandler=async()=>{
@@ -26,9 +29,9 @@ export const Nav=()=>{
        {user?<span className="nav-link" onClick={signOutHandler}>signout</span>:
         <Link className="nav-link" to="/auth">signIn</Link>
        }
-        
+        <CartIcon></CartIcon>
       </div>
-      
+      {isCartOpen && <CartDropdown/>}
     </div>
     <Outlet></Outlet>
     </Fragment>

@@ -7,12 +7,15 @@ import {BrowserRouter} from "react-router-dom";
 import { UserProvider } from './contexts/user.context';
 import "./index.scss"
 import {ProductsProvider} from "./contexts/productContext"
+import {CartProvider} from "./contexts/cartcontext"
 
 ReactDOM.render(
   <BrowserRouter>
     <UserProvider>
       <ProductsProvider>
-         <App/>
+        <CartProvider>
+        <App/>
+        </CartProvider>
       </ProductsProvider>
     
     </UserProvider>
