@@ -8,7 +8,7 @@ export const CartItem=({item})=>{
             <img src={imageUrl} alt={name}></img>
            
             <div className="car-item-detail">
-                <spam className="name">{name}</spam>
+                <span className="name">{name}</span>
                 <span className="price">{quantity} x {price}</span>
             </div>
         </div>
