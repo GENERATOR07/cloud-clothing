@@ -1,13 +1,16 @@
 import "./cart-item.styles.scss"
 
 export const CartItem=({item})=>{
-    const {name,quantity}=item
+    const {name,imageUrl,quantity,price}=item
     return(
-        <div>
-            <h2>
-                {name}
-            </h2>
-            <span>{quantity}</span>
+        <div className="cart-item-container">
+           
+            <img src={imageUrl} alt={name}></img>
+           
+            <div className="car-item-detail">
+                <spam className="name">{name}</spam>
+                <span className="price">{quantity} x {price}</span>
+            </div>
         </div>
     )
 
