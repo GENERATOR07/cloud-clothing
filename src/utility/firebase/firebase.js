@@ -10,7 +10,13 @@ import{getAuth,
     signInWithEmailAndPassword,
     signOut
 } from "firebase/auth"
-import{getFirestore,doc,getDoc,setDoc} from "firebase/firestore"
+import{getFirestore,doc,getDoc,setDoc,
+collection,
+writeBatch,
+query,
+getDocs
+
+} from "firebase/firestore"
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBGwAX8PlneNsifcav4mxNwsQEPFeqiJ1M",
@@ -69,3 +75,28 @@ export const LoginAuthWithUserAndPassword=async (email,pass)=>{
 }
 
 export const signOutUser=async ()=> await signOut(auth)
+
+export const addCollectionAndDocuments=async (collectionKey,objectToAdd)=>{
+    const ColRef=collection(db,collectionKey)
+    const batch=writeBatch(db)
+
+    objectToAdd.forEach(e => {
+       const  docRef=doc(ColRef,e.title.toLowerCase())
+        batch.set(docRef,e)
+    });
+    await batch.commit();
+    console.log("done")
+}
+
+export const getCategoriesAndDocuments=async ()=>{
+    const ColRef=collection(db,"categories")
+    const q=query(ColRef)
+    const queryss=await getDocs(q)
+    const categoryMap= queryss.docs.reduce((acc,docss)=>{
+        const {title,items}=docss.data()
+        acc[title.toLowerCase()]=items
+        return acc;
+
+    },{})
+    return categoryMap;
+}
